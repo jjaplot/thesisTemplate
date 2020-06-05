@@ -1,0 +1,166 @@
+%%% demothesis.tex --- 
+%% 
+%% Filename: demothesis.tex
+%% Description: 
+%% Author: Javier Aranda
+%% Notes: Based on Ola Leifler's Linköping template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%% Code:
+\documentclass[phd,miun,english, printerfriendly]{miunthesis}
+\usepackage{lipsum}
+\usepackage{siunitx}
+\usepackage{booktabs} 
+\usepackage{tocbibind}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{dirtytalk}
+
+%% glossaries / abbreviations option - comment to exclude
+
+\makeglossaries
+
+%\usepackage{todonotes} %% uncomment this like for todo package
+
+
+
+\include{settings}
+
+\department{EKS}
+\departmentenglish{Department of Electronics Design}
+\degreetypeM{Degree of Doctor of Technology}
+\edition{1}
+\campus{Sundsvall}
+\presentationroom{cs01}
+\degreetypeSV{doktorexamen i electronik }
+\presentationcampus{Sundsvall}
+\presentationdate{28 maj 2021}
+\presentationtime{09:30}
+
+
+\supervisor{Min handledare}
+\cosupervisor{Min hanledare}
+\titleenglish{Such Title, much education}
+\thesisnumber{231}
+
+\publicationyear{2020}
+\isbn{123456}
+\divanumber{456789}
+\author{Javier}
+
+
+\usepackage{fancyhdr}
+
+\fancypagestyle{ppFR}{
+  \fancyhf{}
+    \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO]{\leftmark}
+\fancyfoot[CE,CO]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+
+\pagenumbering{roman}
+ \begin{adjustwidth}{0.5cm}{0cm}
+ \pagestyle{empty}
+ \maketitle
+ \newpage
+ \end{adjustwidth}
+
+  \ifstudent
+  \makeinsidepage
+  \else
+  \pagestyle{plain}
+  \makepermissionpage
+  \fi
+  \ifdedication
+  \makededicationpage
+  \fi
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Abstract}
+\cleardoublepage
+
+\ifstudent
+\begin{abstract}
+  \@abstract
+\end{abstract}
+\else
+\abstractpages
+\phantomsection
+
+\sammanfattningpages
+\addcontentsline{toc}{chapter}{Sammanfattning}
+\fi
+
+\cleardoublepage
+
+  \cleardoublepage
+  {\pagestyle{plain}\tableofcontents\relax\cleardoublepage}
+  \iftotalfigures {\pagestyle{plain}\listoffigures\relax\cleardoublepage}\fi
+  \iftotaltables {\pagestyle{plain}\listoftables\relax\cleardoublepage}\fi
+  \ifabbrev{\pagestyle{plain}\printglossary[type=\acronymtype,title={Abbreviations}]\relax\cleardoublepage}\fi
+ \listofappendices% 
+ \addcontentsline{toc}{chapter}{List of Papers}
+   \makeatletter 
+  \@acknowledgments
+  \makeatother
+  \addcontentsline{toc}{chapter}{Acknowledgments}
+  \ifprinterfriendly
+    \cleartooddpage
+  \else
+    \cleartorecto
+  \fi
+
+
+% Choose any chapter style compatible with Memoir that you like
+\chapterstyle{ntglike}
+\pagenumbering{arabic}
+
+
+
+
+
+
+
+
+% Include your chapters here
+\include{intro}
+\include{theory}
+\include{method}
+% \include{results}
+% \include{discussion}
+% \include{conclusion}
+
+% And print the references (by default in references.bib)
+\printbibliography
+
+\begin{appendices}
+% Including articles, in Tex and PDF form
+
+% this is how you add an article with the PDF
+%% includearticle{*pdf_Name}{Journal where published}
+
+\includearticle{XU2019}{Conference: 2019 IEEE 8th International Workshop on Advances in Sensors and Interfaces (IWASI)}. 
+
+\includearticle{BaderMA}{Journal of Sensor and Actuator Networks}. 
+
+
+
+
+% this is how you add an article via "".TEX, just put the .tex file in papers and compile, see the scigen.tex example to use as reference on how to format the paper
+%% includearticle{*.tex}{Journal where published}
+
+\includearticletex{scigenx}{IEEE Journal of Industrial Electronics} 
+
+\end{appendices}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% demothesis.tex ends here
+
