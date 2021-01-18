@@ -1,4 +1,10 @@
-\pagestyle{empty}
+%% This is to have the figures and tables to start from 0 on each paper,
+\pagestyle{plain}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand\thefigure{X.\arabic{figure}}. % Where X is the paper number, e.g., I, II, III or A, B C, etc
+\renewcommand\thetable{X.\arabic{table}}
+
 
 \begin{refsection}
   \begin{abstract}
