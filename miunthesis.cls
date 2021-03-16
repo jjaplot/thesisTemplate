@@ -119,6 +119,8 @@
 \createvariable{thesissubject}
 \createvariable{thesissubjectenglish}
 
+
+
 \newif\ifsubtitleswedish
 \subtitleswedishfalse
 \def\subtitleswedish#1{\subtitleswedishtrue\gdef\@subtitleswedish{#1}}
@@ -144,6 +146,7 @@
 \gdef\@abstract{\input{abstract.tex}}
 \gdef\@sammanfattning{\input{sammanfattning.tex}}
 \gdef\@acknowledgments{\input{acknowledgments.tex}}
+\gdef\@blank{\input{blank.tex}}
 
 \newif\ifmiun
 \miuntrue
@@ -229,6 +232,8 @@
 % \PassOptionsToClass{#1}{memoir}
 % }
 
+
+
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
 
 \ExecuteOptions{english,phd,miun,a4paper}
@@ -266,12 +271,15 @@
 \let\usepackage\RequirePackage
 % End workaround
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{emptypage}
 \usepackage{siunitx}
+\usepackage{makecell}
 \usepackage{booktabs} 
 \usepackage{tocbibind}
 \usepackage{hyperref}
 \usepackage{multirow}
 \usepackage{dirtytalk}
+\usepackage{fmtcount}
 \RequirePackage{lipsum}
 \RequirePackage{xltxtra}
 \RequirePackage{babel}
@@ -357,6 +365,13 @@
 }
 
 
+\renewcommand\theadalign{bc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+
+\setlength\heavyrulewidth{0.25ex}
+
 %%%%%%% Papers %%%%%%
 %%%%
 % custom page styles
@@ -366,7 +381,7 @@
 \newcounter{article}
 \setcounter{article}{0}
 \renewcommand{\thearticle}{\Roman{article}}
-\includepdfset{pages=-}
+\includepdfset{pages=-, scale = 0.85}
 \setlength{\TPVertModule}{2cm}
 \setlength{\TPHorizModule}{\paperwidth - 4.3cm}
 \newcommand{\papermark}{Paper \thearticle}
@@ -429,14 +444,16 @@
      {\hfill \feline@chm[1.7cm]\\[2\baselineskip]}
      {\large{\bfseries{\citefield{#1}{title}}}} \\
      \vspace*{\fill}
-     \copyright{} \footnotesize{\citeyear{#1}, #2}
+      \footnotesize{\citeyear{#1}, #2}
   \end{center}%
   \vspace*{\fill}%
-  \clearpage{}
+  \cleardoublepage
       \chapter*{}
   \label{art:#1}
   \pagestyle{empty}
  \input{papers/#1}%
+ \thispagestyle{empty}
+ \cleartooddpage
 }
 
 \ifx\pdfoutput\undefined
@@ -449,6 +466,12 @@
 
 
 %%%%%% Abbreviations %%%%%
+
+
+
+
+
+
 
 \usepackage[nopostdot,toc,acronym,nomain,nonumberlist, noredefwarn]{glossaries}
 
@@ -612,15 +635,17 @@
 \@sammanfattning
 
 }
-
+{
 
 
 \newcommand{\makepermissionpage}{
 
+\thispagestyle{empty}
+
   \begin{flushleft}
     {
     Akademisk avhandling som med tillstånd av Mittuniversitetet i Sundsvall
-    framläggs till offentlig för avläggande av \@degreetypeSV den
+    framläggs till offentlig granskning för avläggande av \@degreetypeSV den
     \textbf{ \@presentationdate{} kl. \@presentationtime \hspace{0.2mm} i sal \@presentationroom,         Mittuniversitetet  \@campus.}  
     Seminariet kommer att hållas på engelska.}
   
@@ -804,5 +829,17 @@
 
   
 }
+
+
+
+
+%%% custom paper title
+
+
+\newcommand{\ptitle}[2]{{\large \citefield{#2}{title}}}
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% miunthesis.cls ends here
